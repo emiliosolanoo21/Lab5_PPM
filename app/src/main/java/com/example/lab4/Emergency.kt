@@ -1,10 +1,14 @@
 package com.example.lab4
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -25,17 +29,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import com.example.lab4.ui.theme.Lab4Theme
 
-class Emergency(navController: NavController) : ComponentActivity(){
+class Emergency : ComponentActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,8 +57,12 @@ class Emergency(navController: NavController) : ComponentActivity(){
 }
 
 @Composable
-fun Contacts()
-{
+fun Contacts() {
+    val context = LocalContext.current
+
+    BackHandler {
+        context.findActivity()?.finish()
+    }
     Surface {
         val alerta = painterResource(id = R.drawable.emergencia)
         val atras = painterResource(id = R.drawable.flecha_atras)
@@ -77,12 +84,14 @@ fun Contacts()
                     modifier = Modifier
                         .absoluteOffset(0.dp, 16.dp)
                         .size(40.dp)
+                        .clickable { context.startActivity(Intent(context, MainActivity::class.java)) }
                 )
 
                 Text(
                     text = "Contactos de Emergencia",
                      style = TextStyle(color = Color.Black, fontSize = 26.sp, FontWeight.Bold),
                      modifier = Modifier.padding(20.dp)
+                     .clickable { context.startActivity(Intent(context, MainActivity::class.java)) }
                 )
 
                 Text(text = "  ")

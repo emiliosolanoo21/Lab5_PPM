@@ -13,7 +13,23 @@
         android:theme="@style/Theme.Lab4"
         tools:targetApi="31">
         <activity
-            android:name=".InteractiveMenu"
+            android:name=".Emergency"
+            android:exported="false"
+            android:theme="@style/Theme.Lab4"/>
+        <activity
+            android:name=".Settings"
+            android:exported="false"
+            android:theme="@style/Theme.Lab4"/>
+        <activity
+            android:name=".Profile"
+            android:exported="false"
+            android:theme="@style/Theme.Lab4"/>
+        <activity
+            android:name=".InfoCampus"
+            android:exported="false"
+            android:theme="@style/Theme.Lab4"/>
+        <activity
+            android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/Theme.Lab4">
             <intent-filter>

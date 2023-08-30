@@ -1,14 +1,18 @@
 package com.example.lab4
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.absoluteOffset
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -25,17 +29,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import com.example.lab4.ui.theme.Lab4Theme
 
-class InfoCampus(navController: NavController) : ComponentActivity() {
+class InfoCampus : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -54,6 +57,11 @@ class InfoCampus(navController: NavController) : ComponentActivity() {
 
 @Composable
 fun PageInfo() {
+    val context = LocalContext.current
+
+    BackHandler {
+        context.findActivity()?.finish()
+    }
     Surface {
         Column {
             CampusCentral()
@@ -66,6 +74,9 @@ fun PageInfo() {
 @Composable
 fun CampusCentral(){
     val campus = painterResource(id = R.drawable.cit_uvg)
+    val atras = painterResource(id = R.drawable.flecha_atras)
+    val context = LocalContext.current
+
     Column(horizontalAlignment = Alignment.CenterHorizontally)
     {
         Row ()
@@ -73,6 +84,15 @@ fun CampusCentral(){
             Text(text = "Campus Central",
                  style = TextStyle(color = Color.Black, fontSize = 26.sp, fontWeight = FontWeight.Bold),
                  modifier = Modifier.padding(20.dp))
+
+            Image(
+                painter = atras,
+                contentDescription = null,
+                modifier = Modifier
+                    .absoluteOffset(0.dp, 16.dp)
+                    .size(40.dp)
+                    .clickable { context.startActivity(Intent(context, MainActivity::class.java)) }
+            )
         }
         Image(painter = campus,
               contentDescription = null,
